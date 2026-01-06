@@ -4,7 +4,7 @@ import { Transaction } from 'sequelize';
 export interface SandboxRepositoryPort {
   createSandbox(
     sandbox: SandboxEntity,
-    transaction: Transaction,
+    transaction?: Transaction,
   ): Promise<SandboxEntity> | SandboxEntity;
 
   findAllSandboxes(): Promise<SandboxEntity[]> | SandboxEntity[];

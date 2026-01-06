@@ -15,7 +15,7 @@ export class SandboxRepository implements SandboxRepositoryPort {
 
   async createSandbox(
     sandbox: SandboxEntity,
-    transaction: Transaction,
+    transaction?: Transaction,
   ): Promise<SandboxEntity> {
     const sandboxModel = await this.sandboxModel.create(
       { name: sandbox.getName() },
