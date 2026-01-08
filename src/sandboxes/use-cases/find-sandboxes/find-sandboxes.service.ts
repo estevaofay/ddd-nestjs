@@ -1,9 +1,8 @@
 import { Inject } from '@nestjs/common';
-import { SANDBOX_REPOSITORY } from '@src/sandboxes/sandboxes.di-tokens';
-import { type SandboxRepositoryPort } from '@src/sandboxes/repository/sandbox.repository.port';
-import { SandboxResponseDto } from '@src/sandboxes/dtos/sandbox-response.dto';
-import { SandboxEntity } from '@src/sandboxes/domain/sandbox.entity';
-import { SandboxMapper } from '@src/sandboxes/sandbox.mapper';
+import { type SandboxRepositoryPort } from '@src/sandboxes/infrastructure/database/sandbox';
+import { SandboxEntity, SandboxMapper } from '@src/sandboxes/domain/sandbox';
+import { SandboxResponseDto } from '@src/sandboxes/use-cases/sandbox-response.dto';
+import { SANDBOX_REPOSITORY } from '@src/sandboxes/infrastructure/database/sandbox/sandbox.di-tokens';
 
 export class FindSandboxesService {
   constructor(

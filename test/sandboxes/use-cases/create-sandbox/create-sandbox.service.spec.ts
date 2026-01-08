@@ -1,15 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SandboxRuntimePort } from '@src/sandboxes/runtime/runtime.port';
-import { SandboxRepository } from '@src/sandboxes/repository/sandbox.repository';
-import {
-  SANDBOX_REPOSITORY,
-  SANDBOX_RUNTIME,
-} from '@src/sandboxes/sandboxes.di-tokens';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
-import { SandboxRepositoryPort } from '@src/sandboxes/repository/sandbox.repository.port';
-import { SandboxEntity } from '@src/sandboxes/domain/sandbox.entity';
 import { CreateSandboxService } from '@src/sandboxes/use-cases/create-sandbox/create-sandbox.service';
 import { CreateSandboxRequestDto } from '@src/sandboxes/use-cases/create-sandbox/create-sandbox.request.dto';
+import { SANDBOX_REPOSITORY } from '@src/sandboxes/infrastructure/database/sandbox/sandbox.di-tokens';
+import { SANDBOX_RUNTIME } from '@src/sandboxes/infrastructure/runtime/runtime.di-tokens';
+import { SandboxRuntimePort } from '@src/sandboxes/infrastructure/runtime';
+import {
+  SandboxRepository,
+  SandboxRepositoryPort,
+} from '@src/sandboxes/infrastructure/database/sandbox';
+import { SandboxEntity } from '@src/sandboxes/domain/sandbox';
+import { SANDBOX_SERVICE_REPOSITORY } from '@src/sandboxes/infrastructure/database/sandbox-service';
 
 describe('CreateSandboxService', () => {
   let service: CreateSandboxService;
@@ -26,6 +27,10 @@ describe('CreateSandboxService', () => {
         },
         {
           provide: SANDBOX_REPOSITORY,
+          useValue: createMock<SandboxRepositoryPort>(),
+        },
+        {
+          provide: SANDBOX_SERVICE_REPOSITORY,
           useValue: createMock<SandboxRepositoryPort>(),
         },
       ],

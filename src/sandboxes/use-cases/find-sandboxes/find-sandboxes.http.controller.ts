@@ -1,10 +1,10 @@
 import { Controller, Get, Logger, UseFilters } from '@nestjs/common';
 import { routesV1 } from '@config/routes';
 import { ApiOperation } from '@nestjs/swagger';
-import { SandboxResponseDto } from '@src/sandboxes/dtos/sandbox-response.dto';
 import { ZodResponse } from 'nestjs-zod';
 import { FindSandboxesService } from '@src/sandboxes/use-cases/find-sandboxes/find-sandboxes.service';
 import { SandboxExceptionFilter } from '@src/sandboxes/use-cases/sandbox-exception.filter';
+import { SandboxResponseDto } from '@src/sandboxes/use-cases/sandbox-response.dto';
 
 @Controller(routesV1.version)
 @UseFilters(new SandboxExceptionFilter())

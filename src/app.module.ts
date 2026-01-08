@@ -1,7 +1,6 @@
 import { Module, Provider } from '@nestjs/common';
 import { SandboxesModule } from './sandboxes/sandboxes.module';
 import { FeatureFlagsModule } from './feature-flags/feature-flags.module';
-import { CqrsModule } from '@nestjs/cqrs';
 import { APP_PIPE } from '@nestjs/core';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -26,7 +25,6 @@ const validationPipes: Provider[] = [
         },
       },
     }),
-    CqrsModule.forRoot(),
     ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'sqlite',

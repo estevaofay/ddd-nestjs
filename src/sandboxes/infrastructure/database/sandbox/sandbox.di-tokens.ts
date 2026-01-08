@@ -1,0 +1,1 @@
+export const SANDBOX_REPOSITORY = Symbol('SANDBOX_REPOSITORY');

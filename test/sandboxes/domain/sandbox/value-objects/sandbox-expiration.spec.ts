@@ -1,5 +1,5 @@
-import { SandboxEntity } from '@src/sandboxes/domain/sandbox.entity';
-import { SandboxName } from '@src/sandboxes/domain/value-objects/sandbox-name';
+import { SandboxName } from '@src/sandboxes/domain/sandbox/value-objects';
+import { SandboxEntity } from '@src/sandboxes/domain/sandbox';
 
 describe('SandboxExpiration', () => {
   it('should be defined', () => {

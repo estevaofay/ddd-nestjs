@@ -1,25 +1,36 @@
 import { Module, Provider } from '@nestjs/common';
-import { CreateSandboxHttpController } from './commands/create-sandbox/create-sandbox.http.controller';
-import { CreateSandboxService } from './commands/create-sandbox/create-sandbox.service';
-import { SANDBOX_REPOSITORY, SANDBOX_RUNTIME } from './sandboxes.di-tokens';
-import { KubernetesSandboxRuntime } from './runtime/kubernetes.runtime';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Sandbox } from './models/sandbox.model';
-import { SandboxMapper } from './sandbox.mapper';
-import { InMemorySandboxRepository } from '@src/sandboxes/repository/in-memory.sandbox.repository';
-import { FindSandboxesHttpController } from '@src/sandboxes/queries/find-sandboxes/find-sandboxes.http.controller';
-import { FindSandboxesService } from '@src/sandboxes/queries/find-sandboxes/find-sandboxes.service';
 import {
-  CreateApplicationServicesFromSandboxCreatedEventHandler
-} from '@src/sandboxes/application/event-handlers/create-sandbox-services-from-sandbox-creation.event-handler';
+  InMemorySandboxRuntime,
+  SANDBOX_RUNTIME,
+} from '@src/sandboxes/infrastructure/runtime';
 import {
-  CreateInfraServicesFromSandboxCreatedEventHandler
-} from '@src/sandboxes/application/event-handlers/create-infra-services-from-sandbox-creation.event-handler';
+  InMemorySandboxRepository,
+  SANDBOX_REPOSITORY,
+} from '@src/sandboxes/infrastructure/database/sandbox';
+import {
+  InMemorySandboxServiceRepository,
+  SANDBOX_SERVICE_REPOSITORY,
+} from '@src/sandboxes/infrastructure/database/sandbox-service';
+import { Sandbox } from '@src/sandboxes/infrastructure/database/sandbox/sandbox.model';
+import {
+  FindSandboxesHttpController,
+  FindSandboxesService,
+} from '@src/sandboxes/use-cases/find-sandboxes';
+import {
+  CreateSandboxHttpController,
+  CreateSandboxService,
+} from '@src/sandboxes/use-cases/create-sandbox';
+import { SandboxMapper } from '@src/sandboxes/domain/sandbox/sandbox.mapper';
 
 const runtimes: Provider[] = [
+  // {
+  //   provide: SANDBOX_RUNTIME,
+  //   useClass: KubernetesSandboxRuntime,
+  // },
   {
     provide: SANDBOX_RUNTIME,
-    useClass: KubernetesSandboxRuntime,
+    useClass: InMemorySandboxRuntime,
   },
 ];
 
@@ -27,6 +38,10 @@ const repositories: Provider[] = [
   {
     provide: SANDBOX_REPOSITORY,
     useClass: InMemorySandboxRepository,
+  },
+  {
+    provide: SANDBOX_SERVICE_REPOSITORY,
+    useClass: InMemorySandboxServiceRepository,
   },
 ];
 
@@ -36,8 +51,6 @@ const repositories: Provider[] = [
   providers: [
     CreateSandboxService,
     FindSandboxesService,
-    CreateApplicationServicesFromSandboxCreatedEventHandler,
-    CreateInfraServicesFromSandboxCreatedEventHandler,
     SandboxMapper,
     ...runtimes,
     ...repositories,
