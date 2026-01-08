@@ -1,4 +1,3 @@
-import { SandboxRuntimePort } from './runtime.port';
 import { Logger } from '@nestjs/common';
 import {
   ApiException,
@@ -9,6 +8,7 @@ import {
 import { ObjectCoreV1Api } from '@kubernetes/client-node/dist/gen/types/ObjectParamAPI';
 import { SandboxEntity } from '@src/sandboxes/domain/sandbox';
 import { SandboxAlreadyExistsError } from '@src/sandboxes/domain/sandbox/errors';
+import { SandboxRuntimePort } from '@src/sandboxes/infrastructure/runtime';
 
 export class KubernetesSandboxRuntime implements SandboxRuntimePort {
   private readonly logger = new Logger(KubernetesSandboxRuntime.name);

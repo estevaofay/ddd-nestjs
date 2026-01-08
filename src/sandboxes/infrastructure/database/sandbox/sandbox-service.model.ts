@@ -7,19 +7,17 @@
 //   AutoIncrement,
 //   Column,
 //   DataType,
-//   HasMany,
 //   Model,
 //   PrimaryKey,
 //   Table,
 // } from 'sequelize-typescript';
-// import { SandboxServiceModel } from '@src/sandboxes/infrastructure/database/sandbox/sandbox-service.model';
 //
 // @Table({
-//   tableName: 'sandboxes',
+//   tableName: 'sandbox_service',
 // })
-// export class Sandbox extends Model<
-//   InferAttributes<Sandbox>,
-//   InferCreationAttributes<Sandbox>
+// export class SandboxServiceModel extends Model<
+//   InferAttributes<SandboxServiceModel>,
+//   InferCreationAttributes<SandboxServiceModel>
 // > {
 //   @PrimaryKey
 //   @AutoIncrement
@@ -29,6 +27,5 @@
 //   @Column
 //   name: string;
 //
-//   @HasMany(() => SandboxServiceModel)
-//   services: SandboxServiceModel[];
+//   isValid: boolean;
 // }
