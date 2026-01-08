@@ -6,7 +6,7 @@ describe('SandboxExpiration', () => {
     // Given
     const name = new SandboxName('dev-123');
     // When
-    const sandbox = new SandboxEntity(name);
+    const sandbox = new SandboxEntity(name, []);
 
     // Then
     expect(sandbox.getName()).toBe('dev-123');
