@@ -31,6 +31,7 @@ describe('CreateSandboxHttpController', () => {
     // Given
     const body: CreateSandboxRequestDto = {
       name: 'test-sandbox',
+      services: [],
     };
     service.createSandbox.mockResolvedValue();
 
